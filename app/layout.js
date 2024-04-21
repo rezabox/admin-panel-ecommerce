@@ -14,9 +14,11 @@ export default function RootLayout({ children }) {
           <Header />
           <div class="container-fluid">
             <div class="row">
-              <Navbar/>
-              {children}
-              <Chart/>
+              <Navbar />
+              <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
+                {children}
+                <Chart />
+              </main>
             </div>
           </div>
           <BootstrapClient />
