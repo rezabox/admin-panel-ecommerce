@@ -30,7 +30,7 @@ function Header() {
         <div className="navbar-nav">
           <div className="nav-item text-nowrap d-flex align-items-center">
             <span className="nav-link">رضاعصاره</span>
-              <Link href='#' className={path === '/' ? 'nav-link px-3' : ''} onClick={async()=>{
+              <Link href='#' className='nav-link px-3' onClick={async()=>{
                   await logout();
                   logoutContext();
                   router.push('/login');
