@@ -1,9 +1,18 @@
-import React from "react";
+'use client';
+import { logout } from "@/actions/auth";
+import AuthContext from "@/context/AuthContext";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useContext } from "react";
 
 function Header() {
+  const path = usePathname();
+  const { logoutContext } = useContext(AuthContext);
+  const router = useRouter()
+  
   return (
       <header className="navbar text-center navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+        <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3">
           فست فود پائیز
         </a>
         <button
@@ -21,9 +30,13 @@ function Header() {
         <div className="navbar-nav">
           <div className="nav-item text-nowrap d-flex align-items-center">
             <span className="nav-link">رضاعصاره</span>
-            <a className="nav-link px-3" href="#">
-              خروج
-            </a>
+              <Link href='#' className={path === '/' ? 'nav-link px-3' : ''} onClick={async()=>{
+                  await logout();
+                  logoutContext();
+                  router.push('/login');
+              }}>
+               خروج              
+              </Link>
           </div>
         </div>
       </header>

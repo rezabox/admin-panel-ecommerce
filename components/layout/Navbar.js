@@ -10,7 +10,7 @@ function Navbar() {
         <div className="position-sticky pt-3">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="index.html">
+              <a className="nav-link active" aria-current="page">
                 <i className="bi bi-grid me-2"></i>
                 داشبورد
               </a>
