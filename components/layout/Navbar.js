@@ -20,37 +20,38 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href='/users' className={path === '/users' ? 'nav-link active' : 'nav-link'}>
+              <Link href='/users' className={path.includes('/users') ? 'nav-link active' : 'nav-link'}>
                 <i className="bi bi-people me-2"></i>
                 کاربران
               </Link>
             </li>
             <li className="nav-item">
-              <a className={path === '/products' ? 'nav-link active' : 'nav-link'} href="./products.html">
+              
+              <a className={path.includes('/products') ? 'nav-link active' : 'nav-link'} href="./products.html">
                 <i className="bi bi-box-seam me-2"></i>
                 محصولات
               </a>
             </li>
             <li className="nav-item">
-              <a className={path === '/categorys' ? 'nav-link active' : 'nav-link'} href="#">
+              <a className={path.includes('/categories') ? 'nav-link active' : 'nav-link'} href="#">
                 <i className="bi bi-grid-3x3-gap me-2"></i>
                 دسته بندی
               </a>
             </li>
             <li className="nav-item">
-              <a className={path === '/orders' ? 'nav-link active' : 'nav-link'} href="#">
+              <a className={path.includes('/orders') ? 'nav-link active' : 'nav-link'} href="#">
                 <i className="bi bi-basket me-2"></i>
                 سفارشات
               </a>
             </li>
             <li className="nav-item">
-              <a className={path === '/transactions' ? 'nav-link active' : 'nav-link'} href="#">
+              <a className={path.includes('/transactions') ? 'nav-link active' : 'nav-link'} href="#">
                 <i className="bi bi-currency-dollar me-2"></i>
                 تراکنش ها
               </a>
             </li>
             <li className="nav-item">
-              <a className={path === '/coupons' ? 'nav-link active' : 'nav-link'} href="#">
+              <a className={path.includes('/coupons') ? 'nav-link active' : 'nav-link'} href="#">
                 <i className="bi bi-percent me-2"></i>
                 تخفیف ها
               </a>
@@ -61,5 +62,4 @@ function Navbar() {
     </div>
   );
 }
-
 export default Navbar;
