@@ -35,6 +35,7 @@ async function login(stateLogin, formActionLogin) {
 }
 async function me(stateLogin, formActionLogin) {
   const token = cookies().get("token");
+  // console.log(token);
   if (!token) {
     return {
       error: "Not Authorized",
