@@ -8,7 +8,7 @@ import React, { useContext } from "react";
 function Header() {
   const path = usePathname();
   const { logoutContext } = useContext(AuthContext);
-  const router = useRouter()
+  const router = useRouter();
   
   return (
       <header className="navbar text-center navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
