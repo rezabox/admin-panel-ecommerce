@@ -1,84 +1,46 @@
-import React from 'react'
+import { getFetch } from "@/utils/fetch";
+import Link from "next/link";
+import React from "react";
+import Pagination from "./Pagiate";
 
-function TableRes() {
+async function TableRes({ params }) {
+  const dataTable = await getFetch(`/users?${params}`);
   return (
-    <div class="table-responsive">
-    <table class="table align-middle">
-      <thead>
-        <tr>
-          <th>تصویر</th>
-          <th>نام</th>
-          <th>قیمت</th>
-          <th>تعداد</th>
-          <th>وضعیت</th>
-          <th>عملیات</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>{/* <img src="./images/b1.jpg" width="80" alt=""> */}</th>
-          <td>همبر ذغالی</td>
-          <td>89,000</td>
-          <td>15</td>
-          <td>فعال</td>
-          <td>
-            <div class="d-flex">
-              <button class="btn btn-sm btn-outline-dark me-2">
-                نمایش
-              </button>
-              <button class="btn btn-sm btn-dark">حذف</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>{/* <img src="./images/p1.jpg" width="80" alt=""> */}</th>
-          <td>پیتزا متخصص</td>
-          <td>150,000</td>
-          <td>5</td>
-          <td>فعال</td>
-          <td>
-            <div class="d-flex">
-              <button class="btn btn-sm btn-outline-dark me-2">
-                نمایش
-              </button>
-              <button class="btn btn-sm btn-dark">حذف</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>{/* <img src="./images/b2.jpg" width="80" alt=""> */}</th>
-          <td>همبر ذعالی بوقلمون</td>
-          <td>103,000</td>
-          <td>10</td>
-          <td>فعال</td>
-          <td>
-            <div class="d-flex">
-              <button class="btn btn-sm btn-outline-dark me-2">
-                نمایش
-              </button>
-              <button class="btn btn-sm btn-dark">حذف</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>{/* <img src="./imzages/p2.jpg" width="80" alt=""> */}</th>
-          <td>پیتزا رست بیف</td>
-          <td>193,000</td>
-          <td>8</td>
-          <td>فعال</td>
-          <td>
-            <div class="d-flex">
-              <button class="btn btn-sm btn-outline-dark me-2">
-                نمایش
-              </button>
-              <button class="btn btn-sm btn-dark">حذف</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  )
+    <div className="table-responsive">
+      <table className="table align-middle">
+        <thead>
+          <tr>
+            <th>نام</th>
+            <th>ایمیل</th>
+            <th>شماره تلفن</th>
+            <th>تاریخ عضویت</th>
+            <th>عملیات</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dataTable.users.map((data) => {
+            return(
+            <tr key={data.id}> 
+              <td>{data.name}</td>
+              <td>{data.email}</td>
+              <td>{data.cellphone}</td>
+              <td>{data.created_at}</td>
+              <td>
+                <div className="d-flex">
+                  <Link href={`/users/${data.id}`} className="btn btn-sm btn-outline-dark me-2">
+                    نمایش
+                  </Link>
+                  <Link href={`/users/edit/${data.id}`} className="btn btn-sm btn-dark">ویرایش</Link>
+                </div>
+              </td>
+            </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      <Pagination dataLink={dataTable.meta.links} />
+    </div>
+  );
 }
 
 export default TableRes;
