@@ -1,6 +1,6 @@
 "use server";
 
-import { postFetch, postFetchAuth } from "@/utils/fetch";
+import { getFetch, postFetch, postFetchAuth } from "@/utils/fetch";
 import { handleError } from "@/utils/help";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -110,4 +110,5 @@ async function createUser(stateUser,formCreateUser) {
     };
   }
 }
+
 export { login, me, logout , createUser};
