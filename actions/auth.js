@@ -1,9 +1,10 @@
 "use server";
 
-import { getFetch, postFetch, postFetchAuth } from "@/utils/fetch";
+import { deleteFetch, getFetch, postFetch, postFetchAuth } from "@/utils/fetch";
 import { handleError } from "@/utils/help";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 async function login(stateLogin, formActionLogin) {
   const email = formActionLogin.get("email");
@@ -110,5 +111,29 @@ async function createUser(stateUser,formCreateUser) {
     };
   }
 }
+async function deleteForm(stateDeleteUser,formActionDelete){
+   const id = formActionDelete.get('userId');
+   if(id === '' || id === null){
+      return {
+          status: "error",
+          message: "شناسه کاربر الزامی است."
+      }
+   }   
+   const data = await deleteFetch(`/users/${id}`)
+   if (data.status === "success") {
+     revalidatePath("/users");
+     redirect("/users");
+     return {
+       status: data.status,
+       message: "حذف کاربر با موفقیت انجام شد.",
+      }
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
 
-export { login, me, logout , createUser};
+}
+
+export { login, me, logout , createUser, deleteForm};
