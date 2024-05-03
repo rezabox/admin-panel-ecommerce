@@ -21,7 +21,10 @@ body {
   height: 16px;
   vertical-align: text-bottom;
 }
-
+.Toastify__toast-body {
+  font-family: "Vazir", sans-serif !important;
+  direction: rtl;
+}
 
 
 .sidebar {
