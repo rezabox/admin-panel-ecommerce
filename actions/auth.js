@@ -2,6 +2,7 @@
 
 import { postFetch, postFetchAuth } from "@/utils/fetch";
 import { handleError } from "@/utils/help";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 async function login(stateLogin, formActionLogin) {
@@ -35,7 +36,7 @@ async function login(stateLogin, formActionLogin) {
 }
 async function me(stateLogin, formActionLogin) {
   const token = cookies().get("token");
-  // console.log(token);
+  console.log(token);
   if (!token) {
     return {
       error: "Not Authorized",
@@ -76,4 +77,37 @@ async function logout(stateLogout, formActionLogout) {
     };
   }
 }
-export { login, me, logout };
+async function createUser(stateUser,formCreateUser) {
+  const name = formCreateUser.get('name');
+  const email = formCreateUser.get('email');
+  const cellphone = formCreateUser.get('cellphone');
+  const password = formCreateUser.get('password');
+  if(name === '' || email === '' || cellphone === '' || password === ''){
+     return {
+        status: 'error',
+        message: "تمامی فیلد های زیر را پر کنید."
+     }
+  }
+  const pattern = /^(\+98|0)?9\d{9}$/;
+  if (!pattern.test(cellphone)) {
+    return {
+      status: "error",
+      message: "فرمت شماره موبایل درست نیست.",
+    };
+  }
+  const data = await postFetch('/users', {name, email, cellphone , password})
+  
+  if (data.status === "success") {
+    revalidatePath('/users')
+    return {
+      status: data.status,
+      message: "کاربر جدید اضافه شد.",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+}
+export { login, me, logout , createUser};
