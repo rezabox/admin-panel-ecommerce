@@ -1,9 +1,11 @@
 import { getFetch } from "@/utils/fetch";
 import Image from "next/image";
 import React from "react";
+import Pagination from "./Pagiate";
 
-async function TablePr() {
-  const data = await getFetch("/products");
+async function TablePr({params}) {
+  const data = await getFetch(`/products?${params}`);
+
   return (
     <div class="table-responsive">
       <table class="table align-middle">
@@ -48,6 +50,7 @@ async function TablePr() {
           })}
         </tbody>
       </table>
+      <Pagination dataLink={data.meta.links}/>
     </div>
   );
 }
