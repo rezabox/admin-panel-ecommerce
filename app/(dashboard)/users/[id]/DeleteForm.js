@@ -1,8 +1,6 @@
 'use client';
 import { deleteForm } from '@/actions/auth';
 import SubmitButton from '@/components/SubmitButton'
-import { redirect } from 'next/navigation';
-
 import React, { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from 'react-toastify';
