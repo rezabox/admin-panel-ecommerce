@@ -26,11 +26,10 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              
-              <a className={path.includes('/products') ? 'nav-link active' : 'nav-link'} href="./products.html">
+              <Link href="/products" className={path.includes('/products') ? 'nav-link active' : 'nav-link'}>
                 <i className="bi bi-box-seam me-2"></i>
                 محصولات
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className={path.includes('/categories') ? 'nav-link active' : 'nav-link'} href="#">
