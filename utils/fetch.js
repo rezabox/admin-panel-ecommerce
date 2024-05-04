@@ -1,62 +1,76 @@
 import { cookies } from "next/headers";
 
 const getFetch = async (url) => {
-  const token = cookies().get('token');
+  const token = cookies().get("token");
   const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
-      cache: 'no-store',
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${token.value}`
-      }
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
   });
-  if(res.ok) {
+  if (res.ok) {
     const data = await res.json();
-    return data.data
+    return data.data;
   } else {
-       throw new Error(`مشکل در دریافت اطلاعات کد :${res.status}`);
+    throw new Error(`مشکل در دریافت اطلاعات کد :${res.status}`);
   }
-}
+};
 
-const postFetch = async (url,body) => {
-const token = cookies().get('token');
-const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
-   cache: 'no-store',
-   method: 'POST',
-   headers: {
-       'Content-Type': 'application/json',
-       'Accept': 'application/json',
-       'Authorization': `Bearer ${token.value}`
-   },
-   body: JSON.stringify(body)
-});
-return await res.json();
-}
-
-const postFetchAuth = async (url,body) => {
+const postFetch = async (url, body) => {
+  const token = cookies().get("token");
   const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
-     cache: 'no-store',
-     method: 'POST',
-     headers: {
-         'Content-Type': 'application/json',
-         'Accept': 'application/json',
-     },
-     body: JSON.stringify(body)
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
+    body: JSON.stringify(body),
   });
   return await res.json();
-  }
-  const deleteFetch = async (url) => {
-    const token = cookies().get('token');
-    const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
-       cache: 'no-store',
-       method: 'DELETE',
-       headers: {
-           'Content-Type': 'application/json',
-           'Accept': 'application/json',
-           'Authorization': `Bearer ${token.value}`
-       },
-    });
-    return await res.json();
-    }
+};
 
-export { getFetch,postFetch,postFetchAuth, deleteFetch }
+const postFetchAuth = async (url, body) => {
+  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  return await res.json();
+};
+const deleteFetch = async (url) => {
+  const token = cookies().get("token");
+  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+    cache: "no-store",
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
+  });
+  return await res.json();
+};
+const putFetch = async (url, body) => {
+  const token = cookies().get("token");
+  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+    cache: "no-store",
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
+    body: JSON.stringify(body),
+  });
+  return await res.json();
+};
+
+export { getFetch, postFetch, postFetchAuth, deleteFetch, putFetch };
