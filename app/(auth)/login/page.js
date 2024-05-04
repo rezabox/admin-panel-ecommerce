@@ -27,13 +27,13 @@ function LoginPage() {
                 <label htmlFor="email" className="form-label">
                   ایمیل
                 </label>
-                <input name="email" className="form-control" id="email" />
+                <input type="text" name="email" className="form-control" id="email" />
               </div>
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">
                   رمز عبور
                 </label>
-                <input name="password" className="form-control" />
+                <input type="password" name="password" className="form-control" />
               </div>
                <SubmitButton title='ورود' style='btn btn-dark'/>
             </form>
