@@ -10,8 +10,8 @@ async function TablePr({params}) {
   const data = await getFetch(`/products?${params}`);
 
   return (
-    <div class="table-responsive">
-      <table class="table align-middle">
+    <div className="table-responsive">
+      <table className="table align-middle">
         <thead>
           <tr>
             <th>تصویر</th>
@@ -42,11 +42,11 @@ async function TablePr({params}) {
                   <td>{item.quantity}</td>
                   <td>{item.status}</td>
                   <td>
-                    <div class="d-flex">
-                      <Link href={`/products/${item.id}`} class="btn btn-sm btn-outline-dark me-2">
+                    <div className="d-flex">
+                      <Link href={`/products/${item.id}`} className="btn btn-sm btn-outline-dark me-2">
                         نمایش
                       </Link>
-                      <Link href={`/products/edit/${item.id}`} class="btn btn-sm btn-dark">ویرایش</Link>
+                      <Link href={`/products/edit/${item.id}`} className="btn btn-sm btn-dark">ویرایش</Link>
                     </div>
                   </td>
                 </tr>
