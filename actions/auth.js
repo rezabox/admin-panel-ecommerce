@@ -192,5 +192,8 @@ async function updatedForm(stateUpdateUser, formActionUpdate) {
     };
   }
 }
+async function createProduct(stateProduct, formActionProduct) {
 
-export { login, me, logout, createUser, deleteForm, updatedForm };
+}
+
+export { login, me, logout, createUser, deleteForm, updatedForm, createProduct };
