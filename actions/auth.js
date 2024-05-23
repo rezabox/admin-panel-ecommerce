@@ -193,7 +193,67 @@ async function updatedForm(stateUpdateUser, formActionUpdate) {
   }
 }
 async function createProduct(stateProduct, formActionProduct) {
+     const name = formActionProduct.get('name');
+     const category_id = formActionProduct.get('category_id');
+     const primary_image = formActionProduct.get('primary_image');
+     const price = formActionProduct.get('price');
+     const quantity = formActionProduct.get('quantity');
+    
+    if(primary_image.size == 0){
+       return {
+           status: 'error',
+           message: "تصویر اصلی الزامی است."
+       }
+    }
 
+   if(name === ''){
+      return {
+         status: 'error',
+         message: "نام محصول الزامی است"
+      }
+   }
+   if(category_id === null){
+      return {
+          status: 'error',
+          message: "دسته بندی الزامی است."
+      }
+   }
+   if(price === ''){
+      return {
+          status: 'error',
+          message: 'مبلغ مورد نظر را وارد کنید.'
+      }
+   }
+   if(quantity === ''){
+       return {
+           status: 'error',
+           message:'تعداد محصول را وارد کنید .'
+       }
+   }
+    
+   const token = cookies().get('token');
+   const res = await fetch('http://localhost:8000/api/admin-panel/products', {
+       cache: 'no-store',
+       method: 'POST',
+       headers: {
+          "Accept": "application/json",
+          'Authorization': `Bearer ${token.value}`
+       },
+       body: formActionProduct,
+   })
+   const data = await res.json();
+   if(data.status == 'success'){
+      revalidatePath('/products');
+      return {
+         status: 'success',
+         message: 'محصول مورد نظر با موفقیت اضافه شد.'
+      }
+   }else{
+      return {
+         status: 'error',
+         message: handleError(data.message),
+      }   
+   }    
 }
 
 export { login, me, logout, createUser, deleteForm, updatedForm, createProduct };
