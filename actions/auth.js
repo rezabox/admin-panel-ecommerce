@@ -255,5 +255,28 @@ async function createProduct(stateProduct, formActionProduct) {
       }   
    }    
 }
+async function deleteProduct(stateDeleteProduct, formActionDeleteProduct) {
+  const id = formActionDeleteProduct.get("productId");
+  if (id === "" || id === null) {
+    return {
+      status: "error",
+      message: "شناسه محصول الزامی است.",
+    };
+  }
+  const data = await deleteFetch(`/products/${id}`);
+  if (data.status === "success") {
+    revalidatePath("/products");
+    redirect("/products");
+    return {
+      status: data.status,
+      message: "حذف محصول با موفقیت انجام شد.",
+    }
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+}
 
-export { login, me, logout, createUser, deleteForm, updatedForm, createProduct };
+export { login, me, logout, createUser, deleteForm, updatedForm, createProduct, deleteProduct };
