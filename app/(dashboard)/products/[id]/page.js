@@ -1,5 +1,6 @@
 import { getFetch } from "@/utils/fetch";
 import React from "react";
+import DeleteProduct from "./DeleteProduct";
 
 async function page({ params }) {
   const userDataPr = await getFetch(`/products/${params.id}`);
@@ -118,6 +119,9 @@ async function page({ params }) {
               </>
             );
           })}
+        </div>
+        <div className="mb-5">
+          <DeleteProduct productId={userDataPr.id}/>
         </div>
       </div>
     </div>
