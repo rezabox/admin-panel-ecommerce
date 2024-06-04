@@ -1,22 +1,23 @@
 import { cookies } from "next/headers";
 
 const getFetch = async (url) => {
-  const token = cookies().get("token");
+  const token = cookies().get('token');
   const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
-    cache: "no-store",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
+      cache: 'no-store',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token.value}`
+      }
   });
+
   if (res.ok) {
-    const data = await res.json();
-    return data.data;
+      const data = await res.json();
+      return data.data
   } else {
-    throw new Error(`مشکل در دریافت اطلاعات کد :${res.status}`);
+      throw new Error(`مشکل در دریافت اطلاعات کد : ${res.status}`);
   }
-};
+}
 
 const postFetch = async (url, body) => {
   const token = cookies().get("token");
@@ -45,6 +46,7 @@ const postFetchAuth = async (url, body) => {
   });
   return await res.json();
 };
+
 const deleteFetch = async (url) => {
   const token = cookies().get("token");
   const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
@@ -58,6 +60,7 @@ const deleteFetch = async (url) => {
   });
   return await res.json();
 };
+
 const putFetch = async (url, body) => {
   const token = cookies().get("token");
   const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
