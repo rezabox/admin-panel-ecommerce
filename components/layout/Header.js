@@ -13,7 +13,7 @@ function Header() {
   return (
       <header className="navbar text-center navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3">
-          فست فود پائیز
+          فست فود پاییز
         </a>
         <button
           className="navbar-toggler position-absolute d-md-none collapsed"
