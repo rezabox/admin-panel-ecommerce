@@ -351,6 +351,30 @@ async function editProduct(stateEditProduct,formActionEditProduct) {
   }
 }
 
+async function deleteCategory(stateDeleteCategory, formActionDeleteCategory) {
+  const id = formActionDeleteCategory.get("id");
+  if (id === "" || id === null) {
+    return {
+      status: "error",
+      message: "شناسه محصول الزامی است.",
+    };
+  }
+  const data = await deleteFetch(`/categories/${id}`);
+  if (data.status === "success") {
+    revalidatePath("/category");
+    redirect("/category");
+    return {
+      status: data.status,
+      message: "حذف از دسته بندی با موفقیت انجام شد.",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+}
+
 export {
   login,
   me,
@@ -360,5 +384,6 @@ export {
   updatedForm,
   createProduct,
   deleteProduct,
-  editProduct
+  editProduct,
+  deleteCategory
 };
