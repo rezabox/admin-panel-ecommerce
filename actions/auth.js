@@ -159,7 +159,7 @@ async function updatedForm(stateUpdateUser, formActionUpdate) {
       message: "فیلد نام را پر کنید",
     };
   }
-  if (email === '' || email === null) {
+  if (email === "" || email === null) {
     return {
       status: "error",
       message: "فیلد ایمیل را پر کنید",
@@ -193,67 +193,67 @@ async function updatedForm(stateUpdateUser, formActionUpdate) {
   }
 }
 async function createProduct(stateProduct, formActionProduct) {
-     const name = formActionProduct.get('name');
-     const category_id = formActionProduct.get('category_id');
-     const primary_image = formActionProduct.get('primary_image');
-     const price = formActionProduct.get('price');
-     const quantity = formActionProduct.get('quantity');
-    
-    if(primary_image.size == 0){
-       return {
-           status: 'error',
-           message: "تصویر اصلی الزامی است."
-       }
-    }
+  const name = formActionProduct.get("name");
+  const category_id = formActionProduct.get("category_id");
+  const primary_image = formActionProduct.get("primary_image");
+  const price = formActionProduct.get("price");
+  const quantity = formActionProduct.get("quantity");
 
-   if(name === ''){
-      return {
-         status: 'error',
-         message: "نام محصول الزامی است"
-      }
-   }
-   if(category_id === null){
-      return {
-          status: 'error',
-          message: "دسته بندی الزامی است."
-      }
-   }
-   if(price === ''){
-      return {
-          status: 'error',
-          message: 'مبلغ مورد نظر را وارد کنید.'
-      }
-   }
-   if(quantity === ''){
-       return {
-           status: 'error',
-           message:'تعداد محصول را وارد کنید .'
-       }
-   }
-    
-   const token = cookies().get('token');
-   const res = await fetch('http://localhost:8000/api/admin-panel/products', {
-       cache: 'no-store',
-       method: 'POST',
-       headers: {
-          "Accept": "application/json",
-          'Authorization': `Bearer ${token.value}`
-       },
-       body: formActionProduct,
-   })
-   const data = await res.json();
-   if(data.status == 'success'){
-      revalidatePath('/products');
-      return {
-         status: 'success',
-         message: 'محصول مورد نظر با موفقیت اضافه شد.'
-      }
-   }else{
-      return {
-         status: 'error',
-         message: handleError(data.message),
-      }   
-   }    
+  if (primary_image.size == 0) {
+    return {
+      status: "error",
+      message: "تصویر اصلی الزامی است.",
+    };
+  }
+
+  if (name === "") {
+    return {
+      status: "error",
+      message: "نام محصول الزامی است",
+    };
+  }
+  if (category_id === null) {
+    return {
+      status: "error",
+      message: "دسته بندی الزامی است.",
+    };
+  }
+  if (price === "") {
+    return {
+      status: "error",
+      message: "مبلغ مورد نظر را وارد کنید.",
+    };
+  }
+  if (quantity === "") {
+    return {
+      status: "error",
+      message: "تعداد محصول را وارد کنید .",
+    };
+  }
+
+  const token = cookies().get("token");
+  const res = await fetch("http://localhost:8000/api/admin-panel/products", {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
+    body: formActionProduct,
+  });
+  const data = await res.json();
+  if (data.status == "success") {
+    revalidatePath("/products");
+    return {
+      status: "success",
+      message: "محصول مورد نظر با موفقیت اضافه شد.",
+    };
+  } else {
+    return {
+      status: "error",
+      message: handleError(data.message),
+    };
+  }
 }
 async function deleteProduct(stateDeleteProduct, formActionDeleteProduct) {
   const id = formActionDeleteProduct.get("productId");
@@ -270,7 +270,7 @@ async function deleteProduct(stateDeleteProduct, formActionDeleteProduct) {
     return {
       status: data.status,
       message: "حذف محصول با موفقیت انجام شد.",
-    }
+    };
   } else {
     return {
       status: data.status,
@@ -278,5 +278,87 @@ async function deleteProduct(stateDeleteProduct, formActionDeleteProduct) {
     };
   }
 }
+async function editProduct(stateEditProduct,formActionEditProduct) {
+  const id = formActionEditProduct.get('id');
+  const primary_image = formActionEditProduct.get("primary_image");
+  const images = formActionEditProduct.get("images[]");
+  const name = formActionEditProduct.get("name");
+  const category_id = formActionEditProduct.get("category_id");
+  const price = formActionEditProduct.get("price");
+  const quantity = formActionEditProduct.get("quantity");
 
-export { login, me, logout, createUser, deleteForm, updatedForm, createProduct, deleteProduct };
+  if (id === "" || id === null) {
+    return {
+      status: "error",
+      message: "شناسه محصول الزامی است.",
+    };
+  }
+  if (primary_image.size == 0) {
+      formActionEditProduct.delete('primary_image')
+  }
+  if(images.size == 0){
+    formActionEditProduct.delete('images[]');
+  }
+
+  if (name === "") {
+    return {
+      status: "error",
+      message: "نام محصول الزامی است",
+    };
+  }
+
+  if (category_id === null) {
+    return {
+      status: "error",
+      message: "دسته بندی الزامی است.",
+    };
+  }
+  if (price === "") {
+    return {
+      status: "error",
+      message: "مبلغ مورد نظر را وارد کنید.",
+    };
+  }
+  if (quantity === "") {
+    return {
+      status: "error",
+      message: "تعداد محصول را وارد کنید .",
+    };
+  }
+ 
+  const token = cookies().get("token");
+  const res = await fetch(`http://localhost:8000/api/admin-panel/products/${id}`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token.value}`,
+    },
+    body: formActionEditProduct,
+  });
+  const data = await res.json();
+  if (data.status == "success") {
+    revalidatePath("/products");
+    return {
+      status: "success",
+      message: "محصول مورد نظر با موفقیت ویرایش شد.",
+    };
+  } else {
+    return {
+      status: "error",
+      message: handleError(data.message),
+    };
+  }
+}
+
+export {
+  login,
+  me,
+  logout,
+  createUser,
+  deleteForm,
+  updatedForm,
+  createProduct,
+  deleteProduct,
+  editProduct
+};
