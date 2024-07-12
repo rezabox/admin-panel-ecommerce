@@ -32,10 +32,10 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <a className={path.includes('/categories') ? 'nav-link active' : 'nav-link'} href="#">
+              <Link href='/category' className={path.includes('/category') ? 'nav-link active' : 'nav-link'}>
                 <i className="bi bi-grid-3x3-gap me-2"></i>
                 دسته بندی
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className={path.includes('/orders') ? 'nav-link active' : 'nav-link'} href="#">
