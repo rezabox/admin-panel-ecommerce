@@ -1,5 +1,5 @@
 "use client";
-import { createProduct } from "@/actions/auth";
+import { editProduct } from "@/actions/auth";
 import SubmitButton from "@/components/SubmitButton";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +14,7 @@ import gregorian from 'react-date-object/calendars/gregorian';
 import gregorian_en from 'react-date-object/locales/gregorian_en';
 
 export default function EditFormProduct({ category, userData }) {
-  const [stateProduct, formActionProduct] = useFormState(createProduct, {});
+  const [stateEditProduct, formActionEditProduct] = useFormState(editProduct, {});
   const router = useRouter();
   const [image, setImage] = useState(`${userData.primary_image}`);
   const [dateSale, setDateSale] = useState([]); 
@@ -33,11 +33,11 @@ export default function EditFormProduct({ category, userData }) {
              },
           ])
       }
-      toast(stateProduct?.message, { type: `${stateProduct?.status}` }) 
-      if(stateProduct?.status == 'success'){
+      toast(stateEditProduct?.message, { type: `${stateEditProduct?.status}` }) 
+      if(stateEditProduct?.status == 'success'){
           router.push('/products');
       }
-  }, [stateProduct]);
+  }, [stateEditProduct]);
 
 
 
@@ -52,15 +52,21 @@ export default function EditFormProduct({ category, userData }) {
   function changeDateOnSale(value) {
     if(value.length == 2){
       setDateSale([
-        value[0].convert(gregorian, gregorian_en).format("YYYY-MM-DD HH:mm:ss"),
-        value[1].convert(gregorian, gregorian_en).format("YYYY-MM-DD HH:mm:ss")
+        {
+          'persian': value[0],
+          'gregorian': value[0].convert(gregorian, gregorian_en).format("YYYY-MM-DD HH:mm:ss")
+        },
+        {
+          'persian': value[1],
+          'gregorian': value[1].convert(gregorian, gregorian_en).format("YYYY-MM-DD HH:mm:ss")
+        },
       ])
     }
   }
 
   return (
     <>
-      <form action={formActionProduct} className="row gy-5">
+      <form action={formActionEditProduct} className="row gy-5">
         <div className="d-flex justify-content-center">
           <div className="col-md-3">
             <label className="form-label">تصویر اصلی</label>
@@ -163,6 +169,8 @@ export default function EditFormProduct({ category, userData }) {
              <label className="form-label">توضیحات</label>
              <textarea name="description" defaultValue={userData.description} className="form-control" rows='4'></textarea>
         </div>
+        <input type="hidden" defaultValue={userData.id} name="id" />
+        <input type="hidden" defaultValue="PUT" name="_method" />
         <div>
           <SubmitButton title="ویرایش محصول" style="btn btn-outline-dark mt-[-5] mb-5" />
         </div>
