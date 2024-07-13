@@ -361,8 +361,8 @@ async function deleteCategory(stateDeleteCategory, formActionDeleteCategory) {
   }
   const data = await deleteFetch(`/categories/${id}`);
   if (data.status === "success") {
-    revalidatePath("/category");
-    redirect("/category");
+    revalidatePath("/categories");
+    redirect("/categories");
     return {
       status: data.status,
       message: "حذف از دسته بندی با موفقیت انجام شد.",
@@ -374,6 +374,30 @@ async function deleteCategory(stateDeleteCategory, formActionDeleteCategory) {
     };
   }
 }
+async function createCategory(stateCreateCategory, formActionCreateCategory){
+    const name = formActionCreateCategory.get('name');
+    const parent_id = formActionCreateCategory.get('parent_id');
+    if(name === '' || parent_id === ''){
+        return{
+          status: "error",
+          message: "تمامی فیلد های زیر را پر کنید.",
+        }
+    }
+    const data = await postFetch('/categories', { name, parent_id })
+    if(data.status == 'success'){
+         revalidatePath('/categories');
+         return{
+              status: data.status,
+              message: 'محصول دسته بندی با موفقیت اضافه شد . '
+         }
+    }else{
+         return{
+              status: data.status,
+              message: handleError(data.message)
+         }
+    }
+}
+
 
 export {
   login,
@@ -385,5 +409,6 @@ export {
   createProduct,
   deleteProduct,
   editProduct,
-  deleteCategory
+  deleteCategory,
+  createCategory
 };

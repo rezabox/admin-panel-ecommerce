@@ -32,7 +32,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href='/category' className={path.includes('/category') ? 'nav-link active' : 'nav-link'}>
+              <Link href='/categories' className={path.includes('/categories') ? 'nav-link active' : 'nav-link'}>
                 <i className="bi bi-grid-3x3-gap me-2"></i>
                 دسته بندی
               </Link>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { Suspense } from "react";
 import Loading from "../Loading";
-import TableCa from "@/components/category/tableCa";
+import TableCa from "@/components/categories/tableCa";
 
 function page(searchParams) {
   const params = new URLSearchParams(searchParams);
@@ -10,7 +10,7 @@ function page(searchParams) {
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4 className="fw-bold">دسته بندی</h4>
         <Link
-          href="/category/create"
+          href="/categories/create"
           type="button"
           className="btn btn-sm btn-outline-dark"
         >

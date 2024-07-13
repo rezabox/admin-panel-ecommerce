@@ -1,6 +1,7 @@
 import { getFetch } from "@/utils/fetch";
 import Link from "next/link";
 import React from "react";
+import Pagination from "./Paginate";
 
 async function TableCa({ params }) {
   const data = await getFetch(`/categories?${params}`);
@@ -25,13 +26,13 @@ async function TableCa({ params }) {
                     <td>
                       <div className="d-flex">
                         <Link
-                          href={`/category/${item.id}`}
+                          href={`/categories/${item.id}`}
                           className="btn btn-sm btn-outline-dark me-2"
                         >
                           نمایش
                         </Link>
                         <Link
-                          href={`/category/edit/${item.id}`}
+                          href={`/categories/edit/${item.id}`}
                           className="btn btn-sm btn-dark"
                         >
                           ویرایش
@@ -45,6 +46,7 @@ async function TableCa({ params }) {
           </tbody>
         </table>
       </div>
+      <Pagination dataLink={data.meta.links}/>
     </div>
   );
 }
