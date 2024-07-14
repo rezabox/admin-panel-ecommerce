@@ -46,7 +46,7 @@ async function TableCa({ params }) {
           </tbody>
         </table>
       </div>
-      <Pagination dataLink={dataCa.meta.links}/>
+      <Pagination dataLinks={dataCa.meta.links}/>
     </div>
   );
 }
