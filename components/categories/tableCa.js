@@ -4,7 +4,7 @@ import React from "react";
 import Pagination from "./Paginate";
 
 async function TableCa({ params }) {
-  const data = await getFetch(`/categories?${params}`);
+  const dataCa = await getFetch(`/categories?${params}`);
   return (
     <div>
       <div className="table-responsive">
@@ -17,7 +17,7 @@ async function TableCa({ params }) {
             </tr>
           </thead>
           <tbody>
-            {data.categories.map((item) => {
+            {dataCa.categories.map((item) => {
               return (
                 <>
                   <tr key={item.id}>
@@ -46,7 +46,7 @@ async function TableCa({ params }) {
           </tbody>
         </table>
       </div>
-      <Pagination dataLink={data.meta.links}/>
+      <Pagination dataLink={dataCa.meta.links}/>
     </div>
   );
 }
