@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import Loading from "../Loading";
 import TableCa from "@/components/categories/tableCa";
 
-function page(searchParams) {
+function page({ searchParams }) {
   const params = new URLSearchParams(searchParams);
   return (
     <main className="col-md-9 ms-sm-auto col-lg-12 px-md-4">

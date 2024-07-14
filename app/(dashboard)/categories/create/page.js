@@ -29,6 +29,10 @@ function page() {
           <label className="form-label">ایدی محصول</label>
           <input name="parent_id" type="text" className="form-control" />
         </div>
+        <div className="col-md-3">
+          <label className="form-label">توضیحات محصول</label>
+          <input name="description" type="text" className="form-control" />
+        </div>
         <div>
           <SubmitButton title="ایجاد محصول در دسته بندی" style="btn btn-outline-dark mt-3" />
         </div>
