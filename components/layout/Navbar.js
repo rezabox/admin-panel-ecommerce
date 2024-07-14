@@ -38,10 +38,10 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <a className={path.includes('/orders') ? 'nav-link active' : 'nav-link'} href="#">
+              <Link  href="/orders" className={path.includes('/orders') ? 'nav-link active' : 'nav-link'} >
                 <i className="bi bi-basket me-2"></i>
                 سفارشات
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className={path.includes('/transactions') ? 'nav-link active' : 'nav-link'} href="#">
