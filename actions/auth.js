@@ -278,8 +278,8 @@ async function deleteProduct(stateDeleteProduct, formActionDeleteProduct) {
     };
   }
 }
-async function editProduct(stateEditProduct,formActionEditProduct) {
-  const id = formActionEditProduct.get('id');
+async function editProduct(stateEditProduct, formActionEditProduct) {
+  const id = formActionEditProduct.get("id");
   const primary_image = formActionEditProduct.get("primary_image");
   const images = formActionEditProduct.get("images[]");
   const name = formActionEditProduct.get("name");
@@ -294,10 +294,10 @@ async function editProduct(stateEditProduct,formActionEditProduct) {
     };
   }
   if (primary_image.size == 0) {
-      formActionEditProduct.delete('primary_image')
+    formActionEditProduct.delete("primary_image");
   }
-  if(images.size == 0){
-    formActionEditProduct.delete('images[]');
+  if (images.size == 0) {
+    formActionEditProduct.delete("images[]");
   }
 
   if (name === "") {
@@ -325,17 +325,20 @@ async function editProduct(stateEditProduct,formActionEditProduct) {
       message: "تعداد محصول را وارد کنید .",
     };
   }
- 
+
   const token = cookies().get("token");
-  const res = await fetch(`http://localhost:8000/api/admin-panel/products/${id}`, {
-    cache: "no-store",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      Authorization: `Bearer ${token.value}`,
-    },
-    body: formActionEditProduct,
-  });
+  const res = await fetch(
+    `http://localhost:8000/api/admin-panel/products/${id}`,
+    {
+      cache: "no-store",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token.value}`,
+      },
+      body: formActionEditProduct,
+    }
+  );
   const data = await res.json();
   if (data.status == "success") {
     revalidatePath("/products");
@@ -374,30 +377,60 @@ async function deleteCategory(stateDeleteCategory, formActionDeleteCategory) {
     };
   }
 }
-async function createCategory(stateCreateCategory, formActionCreateCategory){
-    const name = formActionCreateCategory.get('name');
-    const parent_id = formActionCreateCategory.get('parent_id');
-    if(name === '' || parent_id === ''){
-        return{
-          status: "error",
-          message: "تمامی فیلد های زیر را پر کنید.",
-        }
-    }
-    const data = await postFetch('/categories', { name, parent_id })
-    if(data.status == 'success'){
-         revalidatePath('/categories');
-         return{
-              status: data.status,
-              message: 'محصول دسته بندی با موفقیت اضافه شد . '
-         }
-    }else{
-         return{
-              status: data.status,
-              message: handleError(data.message)
-         }
-    }
+async function createCategory(stateCreateCategory, formActionCreateCategory) {
+  const name = formActionCreateCategory.get("name");
+  const parent_id = formActionCreateCategory.get("parent_id");
+  const description = formActionCreateCategory.get("description");
+  if (name === "" || parent_id === "" || description === "") {
+    return {
+      status: "error",
+      message: "تمامی فیلد های زیر را پر کنید.",
+    };
+  }
+  const data = await postFetch("/categories", { name, parent_id, description });
+  if (data.status == "success") {
+    revalidatePath("/categories");
+    return {
+      status: data.status,
+      message: "محصول دسته بندی با موفقیت اضافه شد . ",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
 }
+async function editCategory(stateUpdateCat, formActionCat) {
+  const name = formActionCat.get("name");
+  const parent_id = formActionCat.get("parent_id");
+  const description = formActionCat.get("description");
+  const id = formActionCat.get("id");
 
+  if (name === "" || parent_id === "" || description === "") {
+    return {
+      status: "error",
+      message: "فیلد های مربوطه را پر کنید",
+    };
+  }
+  const data = await putFetch(`/categories/${id}`, {
+    name,
+    parent_id,
+    description,
+  });
+  if (data.status === "success") {
+    revalidatePath("/categories");
+    return {
+      status: data.status,
+      message: "ویرایش  با موفقیت انجام شد.",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+}
 
 export {
   login,
@@ -410,5 +443,6 @@ export {
   deleteProduct,
   editProduct,
   deleteCategory,
-  createCategory
+  createCategory,
+  editCategory,
 };
