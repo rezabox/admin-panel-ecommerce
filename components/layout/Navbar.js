@@ -44,10 +44,10 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <a className={path.includes('/transactions') ? 'nav-link active' : 'nav-link'} href="#">
+              <Link href="/transactions" className={path.includes('/transactions') ? 'nav-link active' : 'nav-link'}>
                 <i className="bi bi-currency-dollar me-2"></i>
                 تراکنش ها
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className={path.includes('/coupons') ? 'nav-link active' : 'nav-link'} href="#">
