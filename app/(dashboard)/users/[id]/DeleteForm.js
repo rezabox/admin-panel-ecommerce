@@ -22,4 +22,4 @@ function DeleteForm({userId}) {
   )
 }
 
-export default DeleteForm
+export default DeleteForm;

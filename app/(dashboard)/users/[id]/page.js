@@ -3,6 +3,7 @@ import { getFetch } from '@/utils/fetch';
 import React from 'react'
 import DeleteForm from './DeleteForm';
 
+
 async function page({params}) {
   const userData = await getFetch(`/users/${params.id}`);
   return (
