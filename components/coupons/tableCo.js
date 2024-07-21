@@ -5,7 +5,7 @@ import Link from "next/link";
 
 async function TableCo({ params }) {
   const dataTableCo = await getFetch(`/coupons?${params}`);
-
+  
   return (
     <div className="table-responsive">
       <table className="table align-middle">
