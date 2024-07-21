@@ -454,6 +454,30 @@ async function deleteCoupon(stateDeleteCoupon, formActionDeleteCoupon){
       };
     }
 }
+async function createCoupon(state, formAction){
+  const code = formAction.get("code");
+  const percentage = formAction.get("percentage");
+  const expired_at = formAction.get("expired_at");
+  if (code === "" || percentage === "" || expired_at === "") {
+    return {
+      status: "error",
+      message: "تمامی فیلد های زیر را پر کنید.",
+    };
+  }
+  const data = await postFetch("/coupons", { code, percentage , expired_at });
+  if (data.status == "success") {
+    revalidatePath("/coupons");
+    return {
+      status: data.status,
+      message: "کد تخفیف با موفقیت اضافه شد.",
+    };
+  } else {
+    return {
+      status: data.status,
+      message: handleError(data.message),
+    };
+  }
+}
 
 export {
   login,
@@ -468,5 +492,6 @@ export {
   deleteCategory,
   createCategory,
   editCategory,
-  deleteCoupon
+  deleteCoupon,
+  createCoupon
 };
