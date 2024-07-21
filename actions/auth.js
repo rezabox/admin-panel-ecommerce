@@ -431,6 +431,29 @@ async function editCategory(stateUpdateCat, formActionCat) {
     };
   }
 }
+async function deleteCoupon(stateDeleteCoupon, formActionDeleteCoupon){
+    const id = formActionDeleteCoupon.get("id");
+    if(id === '' || id === null){
+      return {
+        status: "error",
+        message: "شناسه محصول الزامی است.",
+      };
+    }
+    const data = await deleteFetch(`/coupons/${id}`);  
+    if(data.status === 'success'){
+      revalidatePath("/coupons");
+      redirect("/coupons");
+      return {
+        status: data.status,
+        message: "حذف از دسته بندی با موفقیت انجام شد.",
+      };
+    }else{
+      return {
+        status: data.status,
+        message: handleError(data.message),
+      };
+    }
+}
 
 export {
   login,
@@ -445,4 +468,5 @@ export {
   deleteCategory,
   createCategory,
   editCategory,
+  deleteCoupon
 };
