@@ -50,10 +50,10 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <a className={path.includes('/coupons') ? 'nav-link active' : 'nav-link'} href="#">
+              <Link href='/coupons' className={path.includes('/coupons') ? 'nav-link active' : 'nav-link'}>
                 <i className="bi bi-percent me-2"></i>
                 تخفیف ها
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
