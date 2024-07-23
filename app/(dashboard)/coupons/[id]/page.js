@@ -13,19 +13,19 @@ async function page({ params }) {
       <div  className="row gy-4">
         <div className="col-md-3">
           <label className="form-label">کد تخفیف</label>
-          <input name="name" disabled type="text" className="form-control" placeholder={userData.code} />
+          <input name="code" disabled type="text" className="form-control" placeholder={userData.code} />
         </div>
         <div className="col-md-3">
           <label className="form-label">درصد تخفیف</label>
-          <input name="email" disabled type="text" className="form-control" placeholder={userData.percentage}/>
+          <input name="percentage" disabled type="text" className="form-control" placeholder={userData.percentage}/>
         </div>
         <div className="col-md-3">
           <label className="form-label">تاریخ ایجاد</label>
-          <input name="cellphone" disabled type="text" className="form-control" placeholder={userData.created_at}/>
+          <input name="created_at" disabled type="text" className="form-control" placeholder={userData.created_at}/>
         </div>
         <div className="col-md-3">
           <label className="form-label">تاریخ انقضا</label>
-          <input name="cellphone" disabled type="text" className="form-control" placeholder={userData.expired_at}/>
+          <input name="expired_a" disabled type="text" className="form-control" placeholder={userData.expired_at}/>
         </div>
         <div>
           <DeleteCoupon id={userData.id}/>
