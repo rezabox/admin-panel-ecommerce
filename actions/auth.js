@@ -478,6 +478,45 @@ async function createCoupon(state, formAction){
     };
   }
 }
+async function editCoupon(state, formAction){
+   const id = formAction.get('id');
+   const code = formAction.get('code');
+   const percentage = formAction.get('percentage');
+   const expired_at = formAction.get('expired_at');
+   if(id === '' || id === null){
+      return{
+        status: "error",
+        message: "شناسه مربوطه یافت نشد.",
+      }
+   }
+   if(code === ''){
+      return{
+        status: "error",
+        message: "کد تخفیف یافت نشد"
+      }
+   }
+   if(percentage === ''){
+      return{
+         status: "error",
+         message: "درصد تخفیف مورد نظر یافت نشد"
+      }
+   }
+   const data = await putFetch(`/coupons/${id}`, {code , percentage, expired_at})
+
+   if(data.status === 'success'){
+      revalidatePath('/coupons');
+      return{
+         status: data.status,
+         message: "کاربر مورد نظر ویرایش شد."
+      }
+   } else {
+        return {
+             status: data.status,
+             message: handleError(data.message),
+        }
+   }
+
+}
 
 export {
   login,
@@ -493,5 +532,6 @@ export {
   createCategory,
   editCategory,
   deleteCoupon,
-  createCoupon
+  createCoupon,
+  editCoupon
 };
