@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 
 const getFetch = async (url) => {
   const token = cookies().get('token');
-  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+  const res = await fetch(`${process.env.API_URL}${url}`, {
       cache: 'no-store',
       headers: {
           'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const getFetch = async (url) => {
 
 const postFetch = async (url, body) => {
   const token = cookies().get("token");
-  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+  const res = await fetch(`${process.env.API_URL}${url}`, {
     cache: "no-store",
     method: "POST",
     headers: {
@@ -35,7 +35,7 @@ const postFetch = async (url, body) => {
 };
 
 const postFetchAuth = async (url, body) => {
-  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+  const res = await fetch(`${process.env.API_URL}${url}`, {
     cache: "no-store",
     method: "POST",
     headers: {
@@ -49,7 +49,7 @@ const postFetchAuth = async (url, body) => {
 
 const deleteFetch = async (url) => {
   const token = cookies().get("token");
-  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+  const res = await fetch(`${process.env.API_URL}${url}`, {
     cache: "no-store",
     method: "DELETE",
     headers: {
@@ -63,7 +63,7 @@ const deleteFetch = async (url) => {
 
 const putFetch = async (url, body) => {
   const token = cookies().get("token");
-  const res = await fetch(`http://localhost:8000/api/admin-panel${url}`, {
+  const res = await fetch(`${process.env.API_URL}${url}`, {
     cache: "no-store",
     method: "PUT",
     headers: {
