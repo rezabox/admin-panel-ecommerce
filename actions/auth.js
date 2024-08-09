@@ -232,7 +232,7 @@ async function createProduct(stateProduct, formActionProduct) {
   }
 
   const token = cookies().get("token");
-  const res = await fetch("http://localhost:8000/api/admin-panel/products", {
+  const res = await fetch(`${process.env.API_URL}/products`, {
     cache: "no-store",
     method: "POST",
     headers: {
@@ -328,7 +328,7 @@ async function editProduct(stateEditProduct, formActionEditProduct) {
 
   const token = cookies().get("token");
   const res = await fetch(
-    `http://localhost:8000/api/admin-panel/products/${id}`,
+    `${process.env.API_URL}/products/${id}`,
     {
       cache: "no-store",
       method: "POST",
